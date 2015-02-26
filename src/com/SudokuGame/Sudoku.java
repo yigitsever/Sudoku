@@ -3,7 +3,7 @@ package com.SudokuGame;
 import java.util.Stack;
 import java.util.Random;
 
-class Sudoku {
+public class Sudoku {
     /**
      * TODO create a difficulty level to allow users play on 3*3 9*9 16*16 boards
      */
@@ -18,7 +18,6 @@ class Sudoku {
         squareBuilder();
 
         layOutBoard();
-    //Just testing if my branch works
 
     }
 
