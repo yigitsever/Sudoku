@@ -2,9 +2,10 @@ package com.SudokuGame;
 
 import java.util.*;
 
-class Square {
+public class Square {
 
     private Stack pQueue;
+    private int value;
 
     public Square()
     {
@@ -28,5 +29,22 @@ class Square {
     public String toString()
     {
         return "" + pQueue.peek();
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int val) {
+
+        if(pQueue.contains(val))
+        {
+            pQueue.clear();
+            this.value = val;
+        }
+        else
+        {
+            throw new IllegalArgumentException("This square cannot contain value " + val);
+        }
     }
 }

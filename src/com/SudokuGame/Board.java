@@ -3,27 +3,23 @@ package com.SudokuGame;
 import java.util.Stack;
 import java.util.Random;
 
-class Sudoku {
+public class Board {
     /**
      * TODO create a difficulty level to allow users play on 3*3 9*9 16*16 boards
      */
 
-    private static Square[] board;
-    private final static int BOARD_X = 9;
-    private final static int BOARD_Y = 9;
-    private final static int BOARD_SIZE = BOARD_X * BOARD_Y;
+    private Square[] board;
+    private final int BOARD_X = 9;
+    private final int BOARD_Y = 9;
+    private final int BOARD_SIZE = BOARD_X * BOARD_Y;
 
-    public static void main(String[] args) {
-
+    public Board()
+    {
         squareBuilder();
-
-        layOutBoard();
-
-
     }
 
 
-    private static Square[] squareBuilder() {
+    private Square[] squareBuilder() {
         board = new Square[BOARD_SIZE];
 
         for (int x = 0; x < BOARD_SIZE; x++) {
@@ -37,7 +33,7 @@ class Sudoku {
         return board;
     }
 
-    private static Stack shuffle(Stack s) {
+    private Stack shuffle(Stack s) {
         Random rnd = new Random();
 
         int[] numbers = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};//TODO Make this extensible (not working just with 9*9)
@@ -58,7 +54,7 @@ class Sudoku {
         return s;
     }
 
-    private static void layOutBoard()
+    private void layOutBoard()
     {
         for(int x = 0; x < BOARD_X; x++)
         {
