@@ -9,15 +9,53 @@ public class Board {
      */
 
     private Square[] board;
-    private final int BOARD_X = 9;
-    private final int BOARD_Y = 9;
-    private final int BOARD_SIZE = BOARD_X * BOARD_Y;
+    private final int BOARD_X;
+    private final int BOARD_Y;
+    private final int BOARD_SIZE;
 
-    public Board()
+    public Board(int x, int y)
     {
+        BOARD_X = x;
+        BOARD_Y = y;
+        BOARD_SIZE = BOARD_X * BOARD_Y;
         squareBuilder();
     }
 
+    public void layOutBoard()
+    {
+        for(int x = 0; x < BOARD_X; x++)
+        {
+            for(int y = 0; y < BOARD_Y; y++)
+            {
+                System.out.print(board[x * BOARD_X + y].toString() + "\t");
+            }
+            System.out.println("");
+        }
+
+    }
+
+    public void Move(int x, int y, int val)
+    {
+        /**
+         * TODO Cant move, dont know what portion does the squares lie (like, I put 5 to 71, who am I
+         * informing here?
+         *
+         */
+    }
+    public void Move(int coor, int val)
+    {
+
+    }
+
+    private void informPoorSquares(int x, int y, int val)
+    {
+
+    }
+
+    private void informPoorSquares(int coor, int val)
+    {
+
+    }
 
     private Square[] squareBuilder() {
         board = new Square[BOARD_SIZE];
@@ -54,18 +92,7 @@ public class Board {
         return s;
     }
 
-    private void layOutBoard()
-    {
-        for(int x = 0; x < BOARD_X; x++)
-        {
-            for(int y = 0; y < BOARD_Y; y++)
-            {
-                System.out.print(board[x * BOARD_X + y].toString());
-            }
-            System.out.println("");
-        }
 
-    }
 
 
 }
