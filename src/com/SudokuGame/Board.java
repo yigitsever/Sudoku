@@ -27,7 +27,7 @@ public class Board {
         {
             for(int y = 0; y < BOARD_Y; y++)
             {
-                System.out.print(board[x * BOARD_X + y].toString() + "\t");
+                Move(x, y, 1);//TEST CODE
             }
             System.out.println("");
         }
@@ -38,12 +38,13 @@ public class Board {
     {
         /**
          * TODO Cant move, dont know what portion does the squares lie (like, I put 5 to 71, who am I
-         * informing here?
+         * informing here? (!SOLVED BY PORTIONFINDER!)
          * For 0 1 2 - 3 4 5 - 6 7 8 rows and 0 1 2 ... cols will declare our portion
-         *
+         * via a portion finder, basically pp = sqrt(BOARD_X), x/pp
          */
 
 	    int portion = portionFinder(x,y);
+        System.out.print(portion);
 
     }
     public void Move(int coor, int val)
@@ -108,7 +109,13 @@ public class Board {
 
 	private int portionFinder(int x, int y)
 	{
-		int por;
+        int xSqrt = (int) Math.sqrt(BOARD_X);
+        int ySqrt = (int) Math.sqrt(BOARD_Y);
+
+        int xpp = (int) Math.floor(x / xSqrt);
+        int ypp = (int) Math.floor(y / ySqrt);
+
+        return xpp * xSqrt + ypp; //We'll test this
 
 
 
