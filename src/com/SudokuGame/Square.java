@@ -7,11 +7,11 @@ public class Square {
     private Stack pQueue;
     private int value;
 
-    public Square()
-    {
+    public Square() {
+
         pQueue = new Stack();
 
-        for(int x = 1; x < 10; x++)//TODO make this extensible (working not only for 9*9 sudoku)
+        for (int x = 1; x < 10; x++)//TODO make this extensible (working not only for 9*9 sudoku)
         {
             pQueue.push(x);
         }
@@ -26,8 +26,7 @@ public class Square {
         this.pQueue = pQueue;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return "" + pQueue.peek();
     }
 
@@ -35,16 +34,29 @@ public class Square {
         return value;
     }
 
-    public void setValue(int val) {
+    public Boolean setValue(int val) {
 
-        if(pQueue.contains(val))
-        {
+        if (pQueue.contains(val)) {
             pQueue.clear();
             this.value = val;
-        }
-        else
-        {
+            return true;
+        } else {
             throw new IllegalArgumentException("This square cannot contain value " + val);
+
         }
+    }
+
+    public void clearValue(int val)
+    {
+        try
+        {
+            this.pQueue.remove(val);
+        }
+        catch (Exception e)
+        {
+
+        }
+
+
     }
 }

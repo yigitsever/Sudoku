@@ -9,33 +9,42 @@ public class Board {
      */
 
     private Square[] board;
-    private final int BOARD_X;
-    private final int BOARD_Y;
+    private final int BOARD_X;  //Width of the board
+    private final int BOARD_Y;  //Height of the board
     private final int BOARD_SIZE;
 
-    public Board(int x, int y)
-    {
+    public Board(int x, int y) {
         BOARD_X = x;
         BOARD_Y = y;
         BOARD_SIZE = BOARD_X * BOARD_Y;
         squareBuilder();
     }
 
-    public void layOutBoard()
-    {
-        for(int x = 0; x < BOARD_X; x++)
-        {
-            for(int y = 0; y < BOARD_Y; y++)
-            {
-                Move(x, y, 1);//TEST CODE
+    public void layOutBoard() {
+        for (int x = 0; x < BOARD_X; x++) {
+            for (int y = 0; y < BOARD_Y; y++) {
+                System.out.print(x*BOARD_X + y + "\t");
             }
             System.out.println("");
         }
 
     }
 
-    public void Move(int x, int y, int val)
-    {
+    public void Move(int coor, int val) {
+
+	    /*  You thought about this, the cols/rows go as 0 1 2 3 ... and the squares
+         *  go as 0 1 2 ... 80 (for 9x9 case ofc)
+	     */
+
+        int x = (int) Math.floor(coor / BOARD_X);
+        int y = coor % BOARD_Y;
+
+
+        Move(x, y, val);
+
+    }
+
+    public void Move(int x, int y, int val) {
         /**
          * TODO Cant move, dont know what portion does the squares lie (like, I put 5 to 71, who am I
          * informing here? (!SOLVED BY PORTIONFINDER!)
@@ -43,33 +52,59 @@ public class Board {
          * via a portion finder, basically pp = sqrt(BOARD_X), x/pp
          */
 
-	    int portion = portionFinder(x,y);
-        System.out.print(portion);
+        int coor = x * BOARD_X + y * BOARD_Y;
 
-    }
-    public void Move(int coor, int val)
-    {
+        if(board[coor].setValue(val)) {
+            System.out.println(val + "successfully added to square #" + coor);
+        } else {
+            System.out.println("There was a problem with adding " + val + " to square " + coor);
+        }
 
-	    /*  You thought about this, the cols/rows go as 0 1 2 3 ... and the squares
-	     *  go as 0 1 2 ... 80 (for 9x9 case ofc)
-	     */
-
-	    int x   = (int) Math.floor(coor / BOARD_X);
-	    int y   = coor % BOARD_Y;
-
-
-	    Move(x, y, val);
+        informSquares(coor, val);
 
     }
 
-	private void informPoorSquares(int x, int y, int val)
-	{
+    private void informSquares(int coor, int val) {
 
-	}
+        int x = (int) Math.floor(coor / BOARD_X);
+        int y = coor % BOARD_Y;
+        int por = portionFinder(x,y);
 
-    private void informPoorSquares(int coor, int val)
+
+        informSquares(x, y, por, val);
+
+    }
+
+    private void informSquares(int x, int y, int por, int val) {
+
+        informRow(x, val);
+        informCol(y, val);
+        informPor(por, val);
+
+    }
+
+    //TODO test inform row&col
+    private void informRow(int x, int val)
     {
+        int rowHead = BOARD_X * x;
+        for(int a = rowHead; a < rowHead + BOARD_Y; a++)
+        {
+            board[a].clearValue(val);
+        }
+    }
 
+    private void informCol(int y, int val)
+    {
+        int colHead = y;
+        for(int a = y; a < BOARD_SIZE; a += BOARD_X)
+        {
+            board[a].clearValue(val);
+        }
+    }
+
+    private void informPor(int por, int val)
+    {
+        //TODO implement informpor which will inform the guys on the same
     }
 
     private Square[] squareBuilder() {
@@ -78,7 +113,7 @@ public class Board {
         for (int x = 0; x < BOARD_SIZE; x++) {
 
             Square temp = new Square();
-            board[x]    = temp;
+            board[x] = temp;
             board[x].setpQueue(shuffle(board[x].getpQueue()));
         }
 
@@ -107,8 +142,7 @@ public class Board {
         return s;
     }
 
-	private int portionFinder(int x, int y)
-	{
+    private int portionFinder(int x, int y) {
         int xSqrt = (int) Math.sqrt(BOARD_X);
         int ySqrt = (int) Math.sqrt(BOARD_Y);
 
@@ -118,10 +152,7 @@ public class Board {
         return xpp * xSqrt + ypp; //We'll test this
 
 
-
-	}
-
-
+    }
 
 
 }
