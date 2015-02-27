@@ -39,18 +39,32 @@ public class Board {
         /**
          * TODO Cant move, dont know what portion does the squares lie (like, I put 5 to 71, who am I
          * informing here?
+         * For 0 1 2 - 3 4 5 - 6 7 8 rows and 0 1 2 ... cols will declare our portion
          *
          */
+
+	    int portion = portionFinder(x,y);
+
     }
     public void Move(int coor, int val)
     {
 
+	    /*  You thought about this, the cols/rows go as 0 1 2 3 ... and the squares
+	     *  go as 0 1 2 ... 80 (for 9x9 case ofc)
+	     */
+
+	    int x   = (int) Math.floor(coor / BOARD_X);
+	    int y   = coor % BOARD_Y;
+
+
+	    Move(x, y, val);
+
     }
 
-    private void informPoorSquares(int x, int y, int val)
-    {
+	private void informPoorSquares(int x, int y, int val)
+	{
 
-    }
+	}
 
     private void informPoorSquares(int coor, int val)
     {
@@ -91,6 +105,14 @@ public class Board {
 
         return s;
     }
+
+	private int portionFinder(int x, int y)
+	{
+		int por;
+
+
+
+	}
 
 
 
