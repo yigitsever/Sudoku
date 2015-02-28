@@ -1,12 +1,33 @@
+/*
+* Preface: Although the sudoku requires (in theory) a "square" board (meaning the
+* width and the height of the board should be the same and they should be a
+* perfectly square number, at some places in the code I approached as if they can
+* be different numbers. It's purely a design restriction that I imposed upon myself
+* to ensure that I know how the code works and why it works like so. When you
+* run upon the values BOARD_X and _Y, they're differantiated only so you can understand
+* the idea behind the code. They can be trimmed down to a singular BOARD_EDGE and everthing
+* should work normally.
+*
+* TL;DR: Sudoku boards are squares but I wrote this as if they may not be,
+* to clarify my thought process.
+*
+* -- * --
+*
+* This is a basic implementation of the well-known game Sudoku with the premise
+* of extensibilty (you can -in theory- play on any size of board as long as the
+* x and y (see above) are perfectly square numbers). It will not have an interface
+* class as is.
+* */
 package com.SudokuGame;
 
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Stack;
 import java.util.Random;
 
 public class Board {
-    /**
-     * TODO create a difficulty level to allow users play on 3*3 9*9 16*16 boards
-     */
 
     private Square[] board;
     private final int BOARD_X;  //Width of the board
@@ -20,14 +41,19 @@ public class Board {
         squareBuilder();
     }
 
-    public void layOutBoard() {
+    public void layOutBoard() throws FileNotFoundException, UnsupportedEncodingException {
+
+        PrintWriter writer = new PrintWriter("board.txt", "UTF-8");
+
         for (int x = 0; x < BOARD_X; x++) {
             for (int y = 0; y < BOARD_Y; y++) {
-                System.out.print(x*BOARD_X + y + "\t");
-            }
-            System.out.println("");
-        }
 
+                writer.print(x * BOARD_X + y + "," + portionFinder(x,y) + "\t");
+
+            }
+            writer.println();
+        }
+        writer.close();
     }
 
     public void Move(int coor, int val) {
@@ -105,6 +131,8 @@ public class Board {
     private void informPor(int por, int val)
     {
         //TODO implement informpor which will inform the guys on the same
+        int sqrtY = (int) Math.sqrt(BOARD_Y);
+//        int porHead = (por / )
     }
 
     private Square[] squareBuilder() {
